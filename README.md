@@ -1,5 +1,5 @@
 # hokya
-Aim: Implementation of Classification algorithm in R Programming. (A)/n
+Aim: Implementation of Classification algorithm in R Programming. (A)\n
 Consider the annual rainfall details at a place starting from January 2012. We create an R time series object
 for a period of 12 months and plot it.
 Get the data points in form of a R vector
