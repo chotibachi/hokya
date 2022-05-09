@@ -1,71 +1,62 @@
 # hokya
-Aim: Implementation of Classification algorithm in R Programming. (A)
+interface Loopback0
+ip address 10.1.1.1 255.255.255.0 
+exit
+interface Serial0/0/0
+ip address 192.168.1.5 255.255.255.252 
+no shutdown
+end
 
-Consider the annual rainfall details at a place starting from January 2012. We create an R time series object for a period of 12 months and plot it.
-Get the data points in form of a R vector
+R2
+interface Loopback0
+ip address 10.2.2.1 255.255.255.0 
+interface Serial0/0/0
+ip address 192.168.1.6 255.255.255.252 
+no shutdown
+exit 
+interface Serial0/0/1
+ip address 172.24.1.17 255.255.255.252 
+no shutdown
+end
 
-rain <-c(800,178,90,600,650,89,200,598,76,300,55,890,98,798,54,100,760,11,546,98)
+R3
+Churchgate(config)# interface Loopback0 
+Churchgate(config-if)# ip address 10.3.3.1 255.255.255.0 
+Churchgate(config-if)# exit
+Churchgate(config)# interface Serial0/0/1
+Churchgate(config-if)# ip address 172.24.1.18 255.255.255.252 
+Churchgate(config-if)# no shutdown
+Churchgate(config-if)# end
+Churchgate#
 
-print(rain)
+R1
+Andheri(config)# router bgp 100
+Andheri(config-router)# neighbor 192.168.1.6 remote-as 300 
+Andheri(config-router)# network 10.1.1.0 mask 255.255.255.0
 
-timeseries <-ts(rain, start=c(2014,3),frequency=12)
+R2
+Bandra(config)# router bgp 300
+Bandra(config-router)# neighbor 192.168.1.5 remote-as 100 
+Bandra(config-router)# neighbor 172.24.1.18 remote-as 65000 
+Bandra(config-router)# network 10.2.2.0 mask 255.255.255.0
 
-print(timeseries)
+R3
 
-plot(timeseries)
+Churchgate(config)# router bgp 65000
+Churchgate(config-router)# neighbor 172.24.1.17 remote-as 300 
+Churchgate(config-router)# network 10.3.3.0 mask 255.255.255.0
 
+R2
+Bandra# show ip bgp neighbors
 
-ts(constant,start=c(year,month), frequency=12)
+R1
+Andheri#show ip route
+ping 10.3.3.1 source 10.1.1.1 or ping 10.3.3.1 source Lo0
+Andheri# show ip bgp
 
-Aim:Decision Tree. (B)
+R2
 
-install.packages("party")
-
-library(party) 
-
-head(readingSkills)
-
-i<-readingSkills[c(1:105),]
-
-o<-ctree(nativeSpeaker~age+score+shoeSize, data=i)
-
-plot(o)
-
-
-
-Aim: perform the clustering using clustering algorithm.
-
-n<-iris
-
-n$Species<-NULL
-
-(kc <-kmeans (n,3))
-
-table(iris$Species,kc$cluster)
-
-plot(n[c("Sepal.Length","Sepal.Width")],col=kc$cluster)
-
-
-Aim: Practical Implementation of Linear Regression using R Tool.
-
-a<-c(21,54,77,86,34,90,77,13,54)
-
-b<-c(76,33,76,12,44,76,98,21,67)
-
-relation<-lm(b~a)
-
-print(relation)
-
-print(summary(relation))
-
-x<-data.frame(b=70)
-
-result<-predict(relation,x)
-
-print(result)
-
-png(file="linear2.png")
-
-plot(b,a,col="blue",main="height and width relation",abline(lm(a~b)),cex=1.3,pch=16,xlab="Width in kg",ylab="Height in cm")
-
-dev.off()
+Bandra(config)# ip as-path access-list 1 deny ^100$ 
+Bandra(config)# ip as-path access-list 1 permit .*
+Bandra(config)# router bgp 300
+Bandra (config-router)# neighbor 192.168.1.5 remove-private-as
