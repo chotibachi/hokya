@@ -66,7 +66,6 @@ print(result)
 
 png(file="linear2.png")
 
-plot(b,a,col="blue",main="height and width relation",abline(lm(a~b)),cex=1.3,pch=16,xlab="Width in
-+ kg",ylab="Height in cm")
+plot(b,a,col="blue",main="height and width relation",abline(lm(a~b)),cex=1.3,pch=16,xlab="Width in kg",ylab="Height in cm")
 
 dev.off()
