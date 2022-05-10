@@ -102,3 +102,13 @@ Bandra(config)# ip as-path access-list 1 permit .*
 Bandra(config)# router bgp 300
 
 Bandra (config-router)# neighbor 192.168.1.5 remove-private-as
+
+R1
+
+Andheri# show ip route
+
+R2
+
+Bandra# show ip bgp regexp ^100$
+
+
