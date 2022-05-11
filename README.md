@@ -86,6 +86,49 @@ public ActionResult Delete(string term)
 {
 var glossaryItem = Glossary.Find(item =>
 item.Term.Equals(term, StringComparison.InvariantCultureIgnoreCase));
+ 
+ Monolithic architecture is built as one large system and is usually one code-base
+It is not easy to scale based on demand
+It has shared database
+Large code base makes IDE slow and build time gets increase.
+It extremely difficult to change technology or language or framework because everything is tightly coupled and depend on each other
+Microservices architecture is built as small independent module based on business functionality
+t is easy to scale based on demand.
+Each project and module has their own database
+Each project is independent and small in size. So overall build and development time gets decrease.
+Easy to change technology or framework because every module and project is independent
+
+
+Characteristics of a Microservice Architecture
+Componentization via Services. ...
+Organized around Business Capabilities. ...
+Products not Projects. ...
+Smart endpoints and dumb pipes. ...
+Decentralized Governance. ...
+Decentralized Data Management. ...
+Infrastructure Automation. ...
+Design for failure.
+
+
+5 core components of microservices architecture
+Microservices. Microservices make up the foundation of a microservices architecture. ...
+Containers. ...
+Service mesh. ...
+Service discovery. ...
+API gateway.
+
+
+Here are five elements that your microservice will need before it can take its place in a distributed application architecture.
+Properly scoped functionality. ...
+Presenting an API. ...
+Traffic management. ...
+Data offloading. ...
+Monitoring.
+
+What is the goal of microservices?
+The microservice architecture structures an application as a set of small, loosely coupled services. 
+As a result, it improves the development time attributes – maintainability, testability, deployability, etc.
+ – and enables an organization to develop better software faster.
 
 if (glossaryItem == null)
 {	return NotFound();
